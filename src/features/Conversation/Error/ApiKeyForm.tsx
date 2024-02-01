@@ -7,7 +7,7 @@ import { Center, Flexbox } from 'react-layout-kit';
 
 import { useChatStore } from '@/store/chat';
 import { useGlobalStore } from '@/store/global';
-import { settingsSelectors } from '@/store/global/selectors';
+import { modelProviderSelectors } from '@/store/global/selectors';
 
 import { FormAction } from './style';
 
@@ -16,8 +16,8 @@ const APIKeyForm = memo<{ id: string }>(({ id }) => {
   const [showProxy, setShow] = useState(false);
 
   const [apiKey, proxyUrl, setConfig] = useGlobalStore((s) => [
-    settingsSelectors.openAIAPI(s),
-    settingsSelectors.openAIProxyUrl(s),
+    modelProviderSelectors.openAIAPI(s),
+    modelProviderSelectors.openAIProxyUrl(s),
     s.setOpenAIConfig,
   ]);
 
@@ -31,6 +31,7 @@ const APIKeyForm = memo<{ id: string }>(({ id }) => {
         title={t('unlock.apikey.title')}
       >
         <Input.Password
+          autoComplete={'new-password'}
           onChange={(e) => {
             setConfig({ OPENAI_API_KEY: e.target.value });
           }}
